@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  frontend:
+    image: daniilkots/my-frontend:latest
+    ports:
+      - "8080:80"
+    depends_on:
+      - api
+
+  api:
+    image: containous/whoami
+    ports:
+      - "8081:80"
+
+  logger:
+    image: busybox
+    command: sh -c "while true; do date '+%Y-%m-%d %H:%M:%S' >> /data/log.txt; sleep 5; done"
+    volumes:
+      - logger-data:/data
+
+volumes:
+  logger-data:
+  
